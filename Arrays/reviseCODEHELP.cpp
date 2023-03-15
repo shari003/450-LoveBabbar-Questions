@@ -395,6 +395,71 @@ void rearrangeAltPos(vector<int> &arr){
 
 }
 
+int majorityElement(vector<int> arr){
+    int count = 1, res = 0;
+    for(int i = 1; i < arr.size(); i++){
+        if(arr[i] == arr[res]){
+            count++;
+        } else {
+            count--;
+        }
+        if(count == 0){
+            res = i;
+            count = 1;
+        }
+    }
+    count = 0;
+
+    for(int i = 0; i < arr.size(); i++){
+        if(arr[i] == arr[res]){
+            count++;
+        }
+        if(count > arr.size()/2){
+            return arr[res];
+        }
+    }
+
+    return -1;
+
+}
+
+void majorityElements(vector<int> arr, int k){
+    unordered_map<int, int> map;
+    for(int i = 0; i < arr.size(); i++){
+        map[arr[i]]++;
+        if(map[arr[i]] > arr.size()/k){
+            cout << arr[i] << " ";
+            map[arr[i]] = -1111;
+        }
+    }
+}
+
+bool isSubset(vector<int> a, vector<int> b){
+    unordered_map<int, int> map;
+    for(int i = 0; i < a.size(); i++){
+        map[a[i]] = 1;
+    }
+    for(int i = 0; i < b.size(); i++){
+        if(map[b[i]] != 1){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void merge(vector<int> &arr, int s, int mid, int e){
+    int i = s, j = mid, k = 0;
+    
+}
+
+void mergeSort(vector<int> &arr, int s, int e){
+    if(s >= e) return;
+    int mid = s+(e-s)/2;
+    mergeSort(arr, s, mid);
+    mergeSort(arr, mid+1, e);
+    merge(arr, s, mid, e);
+}
+
 int main(){
     // Q1. Reverse the array.
     // vector<int> arr {1,2,3,4,5};
@@ -486,8 +551,23 @@ int main(){
     // commonElements(a, b, c);
 
     // Q21. Rearrange array in alternating positive & negative items with O(1) extra space
-    vector<int> arr {-5, -2, 5, 2, 4, 7, 1, 8, 0, -8};
-    rearrangeAltPos(arr);
+    // vector<int> arr {-5, -2, 5, 2, 4, 7, 1, 8, 0, -8};
+    // rearrangeAltPos(arr);
+
+    // Q22. Given an array of size n and a number k, find an element that appear more than " n/2 " times.
+    // vector<int> arr { 1, 1, 2, 2, 3, 5, 4, 2, 2, 3, 1, 1, 1 };
+    // cout << "The element appearing more than n/2 times is : " << majorityElement(arr) << endl;
+    // majorityElements(arr, 4);
+
+    // Q23. Find whether an array is a subset of another array. 
+    // vector<int> a {11, 1, 13, 21, 3, 7};
+    // vector<int> b {11, 3, 7, 1};
+    // cout << "Is it a subset of the array ? : " << isSubset(a, b) << endl;
+
+    // Q24. Count Inversions.
+    vector<int> arr {2, 4, 1, 3, 5};
+    mergeSort(arr, 0, arr.size()-1);
+
 
 
 
